@@ -6,7 +6,6 @@
 simple flashcard app that allows a user to view a single flashcard and test their knowledge
 
 ### App Walk-though
-`TODO://` Add the URL to your animated app walk-though `gif` in the image tag below. Make sure the gif actually renders and animates when viewing this README. (☝️ Remove this paragraph after after adding gif)
 
 <img src="http://g.recordit.co/um9qO8USHn.gif" width=200><br>
 
