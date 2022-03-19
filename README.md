@@ -7,7 +7,7 @@ adding new card functionality
 
 ### App Walk-though
 
-<img src="https://recordit.co/F3qQ0hS1pU" width=200><br>
+<img src="http://g.recordit.co/F3qQ0hS1pU.gif" width=200><br>
 
 ## Required
 - [X] User can click on a ‘+’ button that takes the user to new ‘Add Card Screen’
