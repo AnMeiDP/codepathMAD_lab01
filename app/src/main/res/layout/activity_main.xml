@@ -79,6 +79,22 @@
 <!--        />-->
 
     <ImageView
+        android:id="@+id/next_card_button"
+        android:src="@drawable/next_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flashcard_question_textview"
+        android:layout_alignRight="@id/flashcard_question_textview"/>
+
+    <ImageView
+        android:id="@+id/delete_card_button"
+        android:src="@drawable/trash_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flashcard_question_textview"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
         android:id="@+id/add_card_button"
         android:src="@drawable/add_icon"
         android:layout_width="wrap_content"
