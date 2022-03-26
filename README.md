@@ -6,6 +6,8 @@
 adding a next button and delete flashcard button
 
 ### App Walk-though
+Updated GIF, same code
+<img src="http://g.recordit.co/aU5re5qR4k.gif" width=200><br>
 
 <img src="http://g.recordit.co/culMpKpJq6.gif" width=200><br>
 
