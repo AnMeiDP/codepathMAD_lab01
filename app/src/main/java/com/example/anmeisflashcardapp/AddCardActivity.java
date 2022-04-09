@@ -23,6 +23,10 @@ public class AddCardActivity extends AppCompatActivity {
             }
         });
 
+        // code for edit card
+//        String s1 = getIntent().getStringExtra("stringKey1"); // this string will be 'harry potter`
+//        String s2 = getIntent().getStringExtra("stringKey2"); // this string will be 'voldemort'
+
         findViewById(R.id.save_card_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

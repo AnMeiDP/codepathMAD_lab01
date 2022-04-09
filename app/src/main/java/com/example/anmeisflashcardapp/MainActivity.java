@@ -3,10 +3,15 @@ package com.example.anmeisflashcardapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.View;
 import android.content.Intent;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     List<Flashcard> allFlashcards;
     int cardIndex = 0;
 
+    // initializing timer
+//    CountDownTimer countDownTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +45,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             // can use Toast to check if your OnClickListener is working
             public void onClick(View v) {
-                findViewById(R.id.flashcard_answer_textview).setVisibility(View.VISIBLE);
-                findViewById(R.id.flashcard_question_textview).setVisibility(View.INVISIBLE);
+                // simple instructions to flip between two cards
+//                findViewById(R.id.flashcard_answer_textview).setVisibility(View.VISIBLE);
+//                findViewById(R.id.flashcard_question_textview).setVisibility(View.INVISIBLE);
+
+                View answerSideView = findViewById(R.id.flashcard_answer_textview);
+
+                // get the center for the clipping circle
+                int cx = answerSideView.getWidth() / 2;
+                int cy = answerSideView.getHeight() / 2;
+
+                // get the final radius for the clipping circle
+                float finalRadius = (float) Math.hypot(cx, cy);
+
+                // create the animator for this view (the start radius is zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(answerSideView, cx, cy, 0f, finalRadius);
+
+                // hide the question and show the answer to prepare for playing the animation!
+                flashcardQuestion.setVisibility(View.INVISIBLE);
+                answerSideView.setVisibility(View.VISIBLE);
+
+                anim.setDuration(2000);
+                anim.start();
             }
         });
 
+        // to flip back to question view
         flashcardAnswer = findViewById(R.id.flashcard_answer_textview);
         flashcardAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +114,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
                 MainActivity.this.startActivityForResult(intent, 100);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            }
+        });
+
+        findViewById(R.id.edit_card_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
+//                intent.putExtra("stringKey1", "harry potter");
+//                intent.putExtra("stringKey2", "voldemort");
+                MainActivity.this.startActivityForResult(intent, 100);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
 
@@ -100,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // implementing next button functionality
+        // need to re-add the visibility of each card global variables!!
+        // need to make sure that it goes to the next questionview rather than the next answerview
         findViewById(R.id.next_card_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,19 +160,52 @@ public class MainActivity extends AppCompatActivity {
                     cardIndex = 0; // resets index
                 }
 
-                Flashcard currentCard = allFlashcards.get(cardIndex);
-                flashcardQuestion.setText(currentCard.getQuestion());
-                flashcardAnswer.setText(currentCard.getAnswer());
+                final Animation leftOutAnim = AnimationUtils.loadAnimation(view.getContext(), R.anim.left_out);
+                final Animation rightInAnim = AnimationUtils.loadAnimation(view.getContext(), R.anim.right_in);
+
+                leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        // this method is called when the animation first starts
+                        findViewById(R.id.flashcard_answer_textview).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.flashcard_question_textview).setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        // this method is called when the animation is finished playing
+                        findViewById(R.id.flashcard_question_textview).startAnimation(rightInAnim);
+
+                        Flashcard currentCard = allFlashcards.get(cardIndex);
+                        flashcardQuestion.setText(currentCard.getQuestion());
+                        flashcardAnswer.setText(currentCard.getAnswer());
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        // we don't need to worry about this method
+                    }
+                });
+
+                findViewById(R.id.flashcard_question_textview).startAnimation(leftOutAnim);
+
             }
         });
+
+        // countdown timer code, not sure where this goes
+//        startTimer();
+//        countDownTimer = new CountDownTimer(15000, 1000) {
+//            public void onTick(long millisUntilFinished) {
+//                ((TextView) findViewById(R.id.timer)).setText("" + millisUntilFinished / 1000);
+//            }
+//
+//            public void onFinish() {
+//            }
+//        };
 
         findViewById(R.id.delete_card_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (allFlashcards == null || allFlashcards.size() == 0) {
-                    return;
-                }
-
                 flashcardDatabase.deleteCard(((TextView) findViewById(R.id.flashcard_question_textview)).getText().toString());
 
                 allFlashcards = flashcardDatabase.getAllCards();
@@ -147,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-//      implementing toggle functionality, create an object
     }
 
     @Override
@@ -169,4 +244,9 @@ public class MainActivity extends AppCompatActivity {
            }
         }
     }
+
+//    private void startTimer() {
+//        countDownTimer.cancel();
+//        countDownTimer.start();
+//    }
 }

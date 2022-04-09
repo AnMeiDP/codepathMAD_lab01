@@ -22,14 +22,24 @@
         android:id="@+id/flashcard_answer_textview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#f77f00"
+        android:background="@drawable/card_background2"
         android:gravity="center"
         android:text="2022"
-        android:textColor="#98c1d9"
+        android:textColor="#3d5a80"
         android:textSize="40sp"
         android:visibility="invisible" />
 
 <!--    <TextView-->
+<!--        android:layout_below="@id/timer"-->
+<!--        android:id="@+id/timer"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="15"-->
+<!--        android:textAlignment="center"-->
+<!--        android:padding="10dp"/>-->
+
+
+    <!--    <TextView-->
 <!--        android:id="@+id/possible_answer_one_textView"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
@@ -101,6 +111,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:id="@+id/edit_card_button"
+        android:src="@drawable/edit_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:padding="4dp"/>
 
     <!--    constraint layout is better than relative layout-->
 </RelativeLayout>
