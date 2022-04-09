@@ -1,11 +1,33 @@
 ## AnMei's FlashCard App
 
+## Lab 4
+
+### App Description
+added animations
+
+### App Walk-though
+
+<img src="http://g.recordit.co/hm57ES3cih.gif" width=200><br>
+
+## Required
+- [X] User sees a transition animation when going from the main screen to the add card screen.
+- [X] User sees a reveal animation when the flashcard is tapped and the answer is shown
+- [X] User sees flashcards animating in / out when the 'next' button is tapped
+
+## Optional
+- [ ] Extra styling is added!
+- [ ] User sees a countdown timer for each question
+- [ ] User sees a 'card flip' animation when the card is tapped
+- [ ] User sees a celebration animation with confetti when they answer a question correctly
+
 ## Lab 3
 
 ### App Description
-adding a next button and delete flashcard button
+added a next button and delete flashcard button
 
 ### App Walk-though
+Updated GIF, same code<br>
+<img src="http://g.recordit.co/aU5re5qR4k.gif" width=200><br>
 
 <img src="http://g.recordit.co/culMpKpJq6.gif" width=200><br>
 
